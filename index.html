@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AERO WALK - Future Footwear</title>
+    
+    <!-- Google Fonts: Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Config Tailwind Theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        'neon-blue': '#00f3ff',
+                        'neon-purple': '#bc13fe',
+                        'dark-bg': '#0f172a',
+                        'card-bg': '#1e293b',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 0.3s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 4px; 
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f3ff; 
+        }
+
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+        
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+
+        .img-container {
+            overflow: hidden;
+        }
+        .img-container img {
+            transition: transform 0.5s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card:hover .img-container img {
+            transform: scale(1.1);
+        }
+        
+        /* Custom Select Styling */
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1em;
+        }
+        select:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .heart-animation {
+            animation: heartBeat 0.3s ease-in-out;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        /* Form Inputs */
+        .input-field {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid #334155;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .input-field:focus {
+            border-color: #00f3ff;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
+        }
+
+        /* Chat Widget Styles */
+        .chat-message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        .chat-user {
+            background: rgba(0, 243, 255, 0.2);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+        .chat-ai {
+            background: rgba(30, 41, 59, 0.9);
+            color: #e2e8f0;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: #00f3ff;
+            border-radius: 50%;
+            display: inline-block;
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-slate-200 font-sans selection:bg-neon-blue selection:text-dark-bg antialiased overflow-x-hidden">
+
+    <!-- Gradient Background -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] right-[-5%] w-64 h-64 md:w-96 md:h-96 bg-neon-blue rounded-full mix-blend-screen filter blur-[80px] md:blur-[128px] opacity-10"></div>
+        <div class="absolute bottom-[-10%] left-[-5%] w-64 h-64 md:w-96 md:h-96 bg-neon-purple rounded-full mix-blend-screen filter blur-[80px] md:blur-[128px] opacity-10"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20 transition-all duration-300">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer select-none" onclick="navigateTo('home')">
+                    <i class="fa-solid fa-wind text-2xl md:text-3xl text-neon-blue"></i>
+                    <span class="font-bold text-xl md:text-2xl tracking-wider text-white">AERO<span class="text-neon-blue">WALK</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" onclick="navigateTo('home')" class="nav-link text-slate-300 hover:text-neon-blue transition-colors text-sm uppercase tracking-widest font-medium" id="nav-home">หน้าแรก</a>
+                    
+                    <!-- ลิงก์สินค้าแนะนำ ปรับให้ไปหน้า High End -->
+                    <a href="#" onclick="navigateTo('recommended')" class="nav-link text-slate-300 hover:text-neon-blue transition-colors text-sm uppercase tracking-widest font-medium flex items-center gap-1" id="nav-rec">
+                        สินค้าแนะนำ <i class="fa-solid fa-crown text-xs text-yellow-500 animate-pulse"></i>
+                    </a>
+                    
+                    <a href="#collection" onclick="navigateTo('home'); setTimeout(() => document.getElementById('collection').scrollIntoView({behavior: 'smooth'}), 100)" class="nav-link text-slate-300 hover:text-neon-blue transition-colors text-sm uppercase tracking-widest font-medium">คอลเลกชัน</a>
+                    <a href="#contact" class="text-slate-300 hover:text-neon-blue transition-colors text-sm uppercase tracking-widest font-medium">ติดต่อ</a>
+                </div>
+
+                <!-- Icons -->
+                <div class="flex items-center gap-2 md:gap-4">
+                    <!-- User Icon (Login/Profile) -->
+                    <button id="user-btn" class="text-slate-300 hover:text-neon-blue transition-colors relative p-2" onclick="handleUserClick()">
+                        <i class="fa-regular fa-user text-lg md:text-xl"></i>
+                    </button>
+                    
+                    <button class="text-slate-300 hover:text-red-500 transition-colors relative p-2" onclick="toggleFavSidebar()">
+                        <i class="fa-regular fa-heart text-lg md:text-xl"></i>
+                        <span id="fav-count" class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
+                    </button>
+                    
+                    <button class="text-slate-300 hover:text-white transition-colors relative p-2" onclick="toggleCart()">
+                        <i class="fa-solid fa-cart-shopping text-lg md:text-xl"></i>
+                        <span id="cart-count" class="absolute top-0 right-0 bg-neon-blue text-dark-bg text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
+                    </button>
+                    <button class="md:hidden text-slate-300 hover:text-white p-2 text-xl ml-2" onclick="toggleMobileMenu()">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-dark-bg/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col items-center justify-center space-y-8">
+        <button onclick="toggleMobileMenu()" class="absolute top-4 right-4 p-4 text-3xl text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+        <a href="#" onclick="toggleMobileMenu(); navigateTo('home')" class="text-2xl font-bold text-white hover:text-neon-blue transition-colors">หน้าแรก</a>
+        <a href="#" onclick="toggleMobileMenu(); navigateTo('recommended')" class="text-2xl font-bold text-white hover:text-neon-blue transition-colors flex items-center gap-2">สินค้าแนะนำ <i class="fa-solid fa-crown text-yellow-500"></i></a>
+        <a href="#collection" onclick="toggleMobileMenu(); navigateTo('home')" class="text-2xl font-bold text-white hover:text-neon-blue transition-colors">คอลเลกชัน</a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="text-2xl font-bold text-white hover:text-neon-blue transition-colors">ติดต่อ</a>
+    </div>
+
+    <!-- Auth Modal (Login/Register/Verify) -->
+    <div id="auth-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[90] hidden flex items-center justify-center p-4">
+        <div class="bg-card-bg border border-slate-700 rounded-2xl w-full max-w-md p-8 relative shadow-2xl">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            
+            <!-- Login Form -->
+            <div id="login-form" class="space-y-6">
+                <h2 class="text-2xl font-bold text-center text-white mb-6">เข้าสู่ระบบ</h2>
+                <div>
+                    <label class="block text-slate-400 text-sm mb-2">อีเมล หรือ ชื่อผู้ใช้</label>
+                    <input type="text" id="login-email" class="input-field" placeholder="กรอกอีเมลของคุณ">
+                </div>
+                <div>
+                    <label class="block text-slate-400 text-sm mb-2">รหัสผ่าน</label>
+                    <input type="password" id="login-password" class="input-field" placeholder="กรอกรหัสผ่าน">
+                </div>
+                <button onclick="login()" class="w-full bg-neon-blue text-dark-bg font-bold py-3 rounded-lg hover:shadow-[0_0_15px_rgba(0,243,255,0.5)] transition-shadow">เข้าสู่ระบบ</button>
+                <div class="text-center text-sm text-slate-400">
+                    ยังไม่มีบัญชี? <button onclick="switchAuthView('register')" class="text-neon-blue hover:underline">สมัครสมาชิก</button>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" class="space-y-6 hidden">
+                <h2 class="text-2xl font-bold text-center text-white mb-6">สมัครสมาชิก</h2>
+                <div>
+                    <label class="block text-slate-400 text-sm mb-2">ชื่อผู้ใช้</label>
+                    <input type="text" id="reg-username" class="input-field" placeholder="ตั้งชื่อผู้ใช้">
+                </div>
+                <div>
+                    <label class="block text-slate-400 text-sm mb-2">อีเมล</label>
+                    <input type="email" id="reg-email" class="input-field" placeholder="ตัวอย่าง: user@example.com">
+                </div>
+                <div>
+                    <label class="block text-slate-400 text-sm mb-2">เบอร์โทรศัพท์</label>
+                    <input type="tel" id="reg-phone" class="input-field" placeholder="08x-xxx-xxxx">
+                </div>
+                <div>
+                    <label class="block text-slate-400 text-sm mb-2">รหัสผ่าน</label>
+                    <input type="password" id="reg-password" class="input-field" placeholder="ตั้งรหัสผ่าน">
+                </div>
+                <button onclick="register()" class="w-full bg-gradient-to-r from-neon-blue to-purple-500 text-white font-bold py-3 rounded-lg hover:opacity-90 transition-opacity">สมัครและรับรหัสยืนยัน</button>
+                <div class="text-center text-sm text-slate-400">
+                    มีบัญชีอยู่แล้ว? <button onclick="switchAuthView('login')" class="text-neon-blue hover:underline">เข้าสู่ระบบ</button>
+                </div>
+            </div>
+
+            <!-- Verify Email Form -->
+            <div id="verify-form" class="space-y-6 hidden">
+                <h2 class="text-2xl font-bold text-center text-white mb-2">ยืนยันอีเมล</h2>
+                <p class="text-center text-slate-400 text-sm mb-2">กรุณากรอกรหัสยืนยัน 6 หลัก</p>
+                
+                <!-- New OTP Display Box -->
+                <div id="otp-display-box" class="bg-slate-800/80 border border-slate-600 rounded-lg p-4 text-center mb-6 animate-pulse">
+                    <span class="text-xs text-slate-400 block mb-1">Simulated Email (OTP):</span>
+                    <span id="otp-text" class="text-2xl font-mono text-neon-blue font-bold tracking-widest">Wait...</span>
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 text-sm mb-2">รหัสยืนยัน (OTP)</label>
+                    <input type="text" id="otp-input" class="input-field text-center text-2xl tracking-widest" placeholder="XXXXXX" maxlength="6">
+                </div>
+                <button onclick="verifyEmail()" class="w-full bg-green-500 text-white font-bold py-3 rounded-lg hover:shadow-[0_0_15px_rgba(34,197,94,0.5)] transition-shadow">ยืนยัน</button>
+                <div class="text-center text-sm text-slate-400">
+                    <button onclick="resendOTP()" class="text-slate-300 hover:text-white">ส่งรหัสใหม่</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal (User Dashboard) -->
+    <div id="profile-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[90] hidden flex items-center justify-center p-4">
+        <div class="bg-card-bg border border-slate-700 rounded-2xl w-full max-w-2xl p-0 relative shadow-2xl flex flex-col max-h-[90vh]">
+            <!-- Header -->
+            <div class="p-6 border-b border-slate-700 flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-blue to-purple-500 flex items-center justify-center text-sm">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    บัญชีผู้ใช้
+                </h2>
+                <button onclick="closeProfileModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Sidebar Menu -->
+                <div class="space-y-2">
+                    <button onclick="switchProfileTab('info')" id="tab-info" class="w-full text-left p-3 rounded-lg bg-slate-800 text-white font-medium border border-neon-blue">ข้อมูลส่วนตัว</button>
+                    <button onclick="switchProfileTab('address')" id="tab-address" class="w-full text-left p-3 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors">ที่อยู่จัดส่ง</button>
+                    <button onclick="switchProfileTab('password')" id="tab-password" class="w-full text-left p-3 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors">เปลี่ยนรหัสผ่าน</button>
+                    <div class="pt-4 border-t border-slate-700 mt-4">
+                        <button onclick="logout()" class="w-full text-left p-3 rounded-lg text-red-400 hover:bg-red-500/10 transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="md:col-span-2 space-y-6">
+                    <!-- Info Tab -->
+                    <div id="content-info">
+                        <h3 class="text-xl font-bold text-white mb-4">ข้อมูลส่วนตัว</h3>
+                        <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700 space-y-4">
+                            <div>
+                                <label class="text-xs text-slate-500 uppercase">ชื่อผู้ใช้</label>
+                                <p class="text-lg text-white" id="display-username">Loading...</p>
+                            </div>
+                            <div>
+                                <label class="text-xs text-slate-500 uppercase">อีเมล</label>
+                                <p class="text-lg text-white" id="display-email">Loading...</p>
+                            </div>
+                            <div>
+                                <label class="text-xs text-slate-500 uppercase">เบอร์โทรศัพท์</label>
+                                <p class="text-lg text-white" id="display-phone">Loading...</p>
+                            </div>
+                            <div class="flex items-center gap-2 text-green-400 text-sm">
+                                <i class="fa-solid fa-circle-check"></i> ยืนยันอีเมลแล้ว
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Address Tab -->
+                    <div id="content-address" class="hidden">
+                        <h3 class="text-xl font-bold text-white mb-4">ที่อยู่จัดส่ง</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-slate-400 text-sm mb-2">รายละเอียดที่อยู่ (บ้านเลขที่, หมู่บ้าน, ถนน)</label>
+                                <textarea id="addr-detail" rows="2" class="input-field" placeholder="ตัวอย่าง: 123/45 หมู่บ้าน..."></textarea>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-slate-400 text-sm mb-2">จังหวัด</label>
+                                    <select id="addr-province" class="input-field bg-slate-800" onchange="loadDistricts()">
+                                        <option value="">เลือกจังหวัด</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-slate-400 text-sm mb-2">เขต / อำเภอ</label>
+                                    <select id="addr-district" class="input-field bg-slate-800" onchange="loadSubDistricts()" disabled>
+                                        <option value="">เลือกเขต/อำเภอ</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-slate-400 text-sm mb-2">แขวง / ตำบล</label>
+                                    <select id="addr-subdistrict" class="input-field bg-slate-800" onchange="setZipcode()" disabled>
+                                        <option value="">เลือกแขวง/ตำบล</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-slate-400 text-sm mb-2">รหัสไปรษณีย์</label>
+                                    <input type="text" id="addr-zip" class="input-field bg-slate-900/50 text-slate-400 cursor-not-allowed" placeholder="รหัสไปรษณีย์" readonly>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 text-sm mb-2">เบอร์โทรศัพท์สำหรับติดต่อ</label>
+                                <input type="tel" id="addr-phone" class="input-field" placeholder="เบอร์โทรศัพท์ผู้รับ">
+                            </div>
+                            <button onclick="saveAddress()" class="bg-neon-blue text-dark-bg font-bold px-6 py-2 rounded hover:opacity-90">บันทึกที่อยู่</button>
+                        </div>
+                    </div>
+
+                    <!-- Password Tab -->
+                    <div id="content-password" class="hidden">
+                        <h3 class="text-xl font-bold text-white mb-4">เปลี่ยนรหัสผ่าน</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-slate-400 text-sm mb-2">รหัสผ่านเดิม</label>
+                                <input type="password" id="pwd-old" class="input-field">
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 text-sm mb-2">รหัสผ่านใหม่</label>
+                                <input type="password" id="pwd-new" class="input-field">
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 text-sm mb-2">ยืนยันรหัสผ่านใหม่</label>
+                                <input type="password" id="pwd-confirm" class="input-field">
+                            </div>
+                            <button onclick="changePassword()" class="bg-neon-purple text-white font-bold px-6 py-2 rounded hover:opacity-90">อัปเดตรหัสผ่าน</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chat Widget -->
+    <div id="ai-chat-widget" class="fixed bottom-6 right-6 z-[85]">
+        <!-- Chat Button -->
+        <button onclick="toggleChat()" id="chat-btn" class="w-16 h-16 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple text-white flex items-center justify-center shadow-[0_0_20px_rgba(188,19,254,0.5)] hover:scale-110 transition-transform z-20 relative">
+            <i class="fa-solid fa-robot text-2xl"></i>
+            <span class="absolute -top-1 -right-1 flex h-4 w-4">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-4 w-4 bg-neon-blue"></span>
+            </span>
+        </button>
+
+        <!-- Chat Window -->
+        <div id="chat-window" class="absolute bottom-20 right-0 w-[350px] h-[500px] bg-dark-bg/95 backdrop-blur-xl border border-neon-blue/30 rounded-2xl shadow-2xl flex flex-col transition-all duration-300 transform scale-0 origin-bottom-right overflow-hidden">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-slate-900 to-slate-800 p-4 border-b border-slate-700 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-blue to-purple-500 p-0.5">
+                        <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-robot text-neon-blue text-sm"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-sm">Aero AI Stylist ✨</h3>
+                        <p class="text-[10px] text-neon-blue flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Online
+                        </p>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-900/50">
+                <!-- Welcome Message -->
+                <div class="flex flex-col items-start">
+                    <div class="chat-message chat-ai">
+                        สวัสดีครับ! ผมคือ Aero AI ✨<br>มีอะไรให้ผมช่วยแนะนำเรื่องรองเท้าไหมครับ? หรือถามเกี่ยวกับสินค้าของเราได้เลย!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-4 border-t border-slate-700 bg-slate-900">
+                <form onsubmit="event.preventDefault(); sendMessage();" class="flex gap-2">
+                    <input type="text" id="chat-input" class="flex-1 bg-slate-800 border border-slate-600 rounded-full px-4 py-2 text-sm text-white focus:outline-none focus:border-neon-blue transition-colors" placeholder="พิมพ์ข้อความ...">
+                    <button type="submit" class="w-9 h-9 rounded-full bg-neon-blue text-dark-bg flex items-center justify-center hover:opacity-90 transition-opacity">
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Legal Modal (Privacy & Terms) -->
+    <div id="legal-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-card-bg border border-slate-700 rounded-2xl w-full max-w-4xl h-[85vh] flex flex-col relative shadow-2xl transform scale-95 transition-transform duration-300" id="legal-modal-content">
+            <!-- Header -->
+            <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-900/50 rounded-t-2xl">
+                <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+                    <i class="fa-solid fa-scale-balanced text-neon-blue"></i>
+                    <span id="legal-modal-title">นโยบายและข้อกำหนด</span>
+                </h2>
+                <button onclick="closeLegalModal()" class="text-slate-400 hover:text-white w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-800 transition-colors">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Tabs -->
+            <div class="flex border-b border-slate-700 bg-slate-900/30">
+                <button onclick="switchLegalTab('privacy')" id="btn-tab-privacy" class="flex-1 py-4 text-center font-bold text-neon-blue border-b-2 border-neon-blue bg-white/5 transition-all">
+                    นโยบายความเป็นส่วนตัว
+                </button>
+                <button onclick="switchLegalTab('terms')" id="btn-tab-terms" class="flex-1 py-4 text-center font-bold text-slate-400 hover:text-white border-b-2 border-transparent hover:bg-white/5 transition-all">
+                    ข้อกำหนดการใช้งาน
+                </button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="flex-1 overflow-y-auto p-8 text-slate-300 leading-relaxed space-y-8 scroll-smooth" id="legal-scroll-area">
+                <!-- Privacy Content -->
+                <div id="legal-content-privacy" class="animate-fade-in">
+                    <h3 class="text-2xl font-bold text-white mb-4">นโยบายความเป็นส่วนตัว</h3>
+                    <p class="mb-4">AERO WALK ให้ความสำคัญกับความเป็นส่วนตัวของท่านอย่างสูงสุด นโยบายนี้อธิบายถึงวิธีการที่เราเก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคลของท่าน</p>
+                    
+                    <h4 class="text-lg font-bold text-white mt-6 mb-2">1. ข้อมูลที่เราเก็บรวบรวม</h4>
+                    <ul class="list-disc list-inside space-y-2 ml-4 text-sm">
+                        <li>ข้อมูลระบุตัวตน (เช่น ชื่อ, อีเมล, เบอร์โทรศัพท์)</li>
+                        <li>ข้อมูลการจัดส่งสินค้า</li>
+                        <li>ข้อมูลการทำธุรกรรมและการชำระเงิน</li>
+                    </ul>
+
+                    <h4 class="text-lg font-bold text-white mt-6 mb-2">2. การใช้ข้อมูล</h4>
+                    <p class="text-sm">เราใช้ข้อมูลเพื่อดำเนินการคำสั่งซื้อ ปรับปรุงบริการ และส่งข้อมูลข่าวสารที่ท่านอาจสนใจ (หากได้รับความยินยอม)</p>
+                </div>
+
+                <!-- Terms Content -->
+                <div id="legal-content-terms" class="hidden animate-fade-in">
+                    <h3 class="text-2xl font-bold text-white mb-4">ข้อกำหนดการใช้งาน</h3>
+                    <p class="mb-4">การเข้าใช้งานเว็บไซต์นี้ถือว่าท่านยอมรับข้อกำหนดและเงื่อนไขดังต่อไปนี้</p>
+                    
+                    <h4 class="text-lg font-bold text-white mt-6 mb-2">1. ทรัพย์สินทางปัญญา</h4>
+                    <p class="text-sm">เนื้อหาทั้งหมดบนเว็บไซต์นี้เป็นลิขสิทธิ์ของ AERO WALK ห้ามคัดลอกหรือดัดแปลงโดยไม่ได้รับอนุญาต</p>
+
+                    <h4 class="text-lg font-bold text-white mt-6 mb-2">2. การสั่งซื้อและชำระเงิน</h4>
+                    <p class="text-sm">ราคาสินค้าอาจมีการเปลี่ยนแปลงโดยไม่ต้องแจ้งให้ทราบล่วงหน้า คำสั่งซื้อจะสมบูรณ์เมื่อได้รับการยืนยันจากเรา</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section (Content) -->
+    <section id="home" class="relative min-h-screen flex items-center pt-24 pb-12 md:pt-20 md:pb-0 overflow-hidden">
+        <div id="view-home" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full animate-fade-in">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+                <!-- Text Content -->
+                <div class="z-10 order-2 lg:order-1 text-center lg:text-left">
+                    <div class="inline-block px-4 py-1 rounded-full border border-neon-blue/30 bg-neon-blue/10 text-neon-blue text-xs md:text-sm font-medium mb-4 md:mb-6 backdrop-blur-sm">
+                        NEW COLLECTION 2025
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-4 md:mb-6 text-glow transition-opacity duration-500" id="hero-title">
+                        ก้าวล้ำ<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-purple-500">สู่อนาคต</span>
+                    </h1>
+                    
+                    <p class="text-slate-400 text-base md:text-lg mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0 font-light leading-relaxed">
+                        สัมผัสประสบการณ์การเดินที่ไร้น้ำหนัก ด้วยเทคโนโลยี Aero-X รุ่นล่าสุด 
+                        ดีไซน์โฉบเฉี่ยว ผสานความสบายระดับสูงสุด
+                    </p>
+                    <div class="flex gap-4 justify-center lg:justify-start">
+                        <button onclick="document.getElementById('collection').scrollIntoView({behavior: 'smooth'})" class="group relative px-6 md:px-8 py-3 md:py-4 bg-neon-blue text-dark-bg font-bold rounded overflow-hidden text-sm md:text-base">
+                            <div class="absolute inset-0 w-full h-full bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12"></div>
+                            ช้อปเลย <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                        <button class="px-6 md:px-8 py-3 md:py-4 border border-slate-600 text-slate-300 font-medium rounded hover:border-neon-blue hover:text-neon-blue transition-colors text-sm md:text-base">
+                            ดูวิดีโอ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="relative order-1 lg:order-2 flex justify-center items-center py-8 md:py-0">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-[280px] h-[280px] md:w-[500px] md:h-[500px] border border-slate-700/50 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                        <div class="absolute w-[220px] h-[220px] md:w-[400px] md:h-[400px] border border-dashed border-neon-blue/20 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+                    </div>
+                    <img src="photo-1543508282-6319a3e2621f-Photoroom.png" 
+                         alt="Future Shoe" 
+                         class="relative z-10 w-[80%] md:w-full max-w-lg drop-shadow-[0_0_35px_rgba(0,243,255,0.3)] animate-float -rotate-12 object-contain hover:scale-105 transition-transform duration-500 rounded-3xl">
+                </div>
+            </div>
+        </div>
+        
+        <!-- View Recommended (Initially Hidden) -->
+        <div id="view-recommended" class="hidden w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in pt-10">
+             <!-- Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 text-sm font-bold mb-4 tracking-wider">
+                    <i class="fa-solid fa-crown"></i> EXCLUSIVE COLLECTION
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-500 to-yellow-200">
+                    PREMIUM SELECTION
+                </h1>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg">
+                    คัดสรรเฉพาะรองเท้าระดับ High-End ที่ผสานเทคโนโลยีสูงสุดและการออกแบบที่หรูหรา 
+                    เพื่อประสบการณ์ที่เหนือกว่า
+                </p>
+            </div>
+
+            <!-- Premium Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12" id="recommended-grid">
+                <!-- Premium Products injected here -->
+            </div>
+            
+             <!-- Back Button -->
+            <div class="text-center mt-16 mb-10">
+                <button onclick="navigateTo('home')" class="px-8 py-3 rounded-full border border-slate-700 text-slate-300 hover:text-white hover:border-neon-blue transition-all flex items-center gap-2 mx-auto">
+                    <i class="fa-solid fa-arrow-left"></i> กลับสู่หน้าหลัก
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section id="collection" class="py-16 md:py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-12">
+                <div class="w-full md:w-auto mb-6 md:mb-0">
+                    <h2 class="text-2xl md:text-4xl font-bold mb-2">เลือกสไตล์ของคุณ</h2>
+                    <p class="text-slate-400 text-sm md:text-base">ค้นพบรองเท้าที่ออกแบบมาเพื่ออนาคต</p>
+                </div>
+                <div class="flex gap-2 w-full md:w-auto overflow-x-auto hide-scroll pb-2 md:pb-0" id="filters">
+                    <button class="filter-btn active px-5 py-2 rounded-full border border-neon-blue bg-neon-blue/10 text-neon-blue text-sm whitespace-nowrap transition-all flex-shrink-0" data-filter="all">ทั้งหมด</button>
+                    <button class="filter-btn px-5 py-2 rounded-full border border-slate-700 text-slate-400 hover:border-slate-500 text-sm whitespace-nowrap transition-all flex-shrink-0" data-filter="running">วิ่ง</button>
+                    <button class="filter-btn px-5 py-2 rounded-full border border-slate-700 text-slate-400 hover:border-slate-500 text-sm whitespace-nowrap transition-all flex-shrink-0" data-filter="lifestyle">ไลฟ์สไตล์</button>
+                    <button class="filter-btn px-5 py-2 rounded-full border border-slate-700 text-slate-400 hover:border-slate-500 text-sm whitespace-nowrap transition-all flex-shrink-0" data-filter="training">เทรนนิ่ง</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8" id="product-grid">
+                <!-- Products will be injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-dark-bg py-8 md:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-wind text-xl text-neon-blue"></i>
+                <span class="font-bold text-lg text-white">AERO<span class="text-neon-blue">WALK</span></span>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6 text-slate-400 text-sm">
+                <a href="#" class="hover:text-white transition-colors">เกี่ยวกับเรา</a>
+                <button onclick="openLegalModal('terms')" class="hover:text-white transition-colors">เงื่อนไขการใช้งาน</button>
+                <button onclick="openLegalModal('privacy')" class="hover:text-white transition-colors">นโยบายความเป็นส่วนตัว</button>
+            </div>
+
+            <div class="flex gap-4">
+                <a href="https://www.facebook.com/share/1BWgTJUveR/?mibextid=wwXIfr" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-neon-blue hover:text-dark-bg transition-all">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/mxrkx_z?igsh=MWQ0MnE1am5za2JzNw%3D%3D&utm_source=qr" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-neon-blue hover:text-dark-bg transition-all">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://x.com/markkaruz76211?s=21" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-neon-blue hover:text-dark-bg transition-all">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+            </div>
+        </div>
+        <div class="text-center text-slate-600 text-xs mt-8 pb-4 md:pb-0">
+            © 2025 Aero Walk Co., Ltd. All rights reserved. Designed by Phuwadon Chueasiri.
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] hidden transition-opacity opacity-0" onclick="toggleCart()"></div>
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-card-bg border-l border-slate-700 z-[70] transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col">
+        <div class="p-6 border-b border-slate-700 flex justify-between items-center">
+            <h3 class="text-xl font-bold flex items-center gap-2">
+                <i class="fa-solid fa-cart-shopping text-neon-blue"></i> ตะกร้าสินค้า
+            </h3>
+            <button onclick="toggleCart()" class="text-slate-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+        <div class="p-6 border-t border-slate-700 bg-slate-900 pb-safe">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-slate-400">ยอดรวม</span>
+                <span id="cart-total" class="text-2xl font-bold text-neon-blue">฿0</span>
+            </div>
+            <button onclick="processCheckout()" class="w-full py-4 bg-gradient-to-r from-neon-blue to-cyan-500 text-dark-bg font-bold rounded-lg hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-shadow">
+                ชำระเงิน
+            </button>
+        </div>
+    </div>
+
+    <!-- Favorites Sidebar -->
+    <div id="fav-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] hidden transition-opacity opacity-0" onclick="toggleFavSidebar()"></div>
+    <div id="fav-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-card-bg border-l border-slate-700 z-[70] transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col">
+        <div class="p-6 border-b border-slate-700 flex justify-between items-center">
+            <h3 class="text-xl font-bold flex items-center gap-2">
+                <i class="fa-solid fa-heart text-red-500"></i> รายการโปรด
+            </h3>
+            <button onclick="toggleFavSidebar()" class="text-slate-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+        </div>
+        <div id="fav-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-white text-dark-bg px-6 py-3 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.3)] font-medium z-[100] transition-all duration-300 translate-y-20 opacity-0 pointer-events-none flex items-center gap-3 w-[90%] md:w-auto justify-center">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-green-500"></i>
+        <span id="toast-message">แจ้งเตือน</span>
+    </div>
+
+    <script>
+        // --- Thai Address Database (Mockup for Demo) ---
+        const thaiAddressDB = [
+            {
+                province: "กรุงเทพมหานคร",
+                districts: [
+                    {
+                        name: "ปทุมวัน",
+                        subdistricts: [
+                            { name: "ปทุมวัน", zip: "10330" },
+                            { name: "ลุมพินี", zip: "10330" },
+                            { name: "รองเมือง", zip: "10330" },
+                            { name: "วังใหม่", zip: "10330" }
+                        ]
+                    },
+                    {
+                        name: "บางรัก",
+                        subdistricts: [
+                            { name: "มหาพฤฒาราม", zip: "10500" },
+                            { name: "สีลม", zip: "10500" },
+                            { name: "สุริยวงศ์", zip: "10500" },
+                            { name: "บางรัก", zip: "10500" },
+                            { name: "สี่พระยา", zip: "10500" }
+                        ]
+                    },
+                    {
+                        name: "จตุจักร",
+                        subdistricts: [
+                            { name: "ลาดยาว", zip: "10900" },
+                            { name: "เสนานิคม", zip: "10900" },
+                            { name: "จันทรเกษม", zip: "10900" },
+                            { name: "จอมพล", zip: "10900" },
+                            { name: "จตุจักร", zip: "10900" }
+                        ]
+                    }
+                ]
+            },
+            {
+                province: "เชียงใหม่",
+                districts: [
+                    {
+                        name: "เมืองเชียงใหม่",
+                        subdistricts: [
+                            { name: "ศรีภูมิ", zip: "50200" },
+                            { name: "พระสิงห์", zip: "50200" },
+                            { name: "หายยา", zip: "50100" },
+                            { name: "ช้างม่อย", zip: "50300" }
+                        ]
+                    },
+                    {
+                        name: "หางดง",
+                        subdistricts: [
+                            { name: "หางดง", zip: "50230" },
+                            { name: "หนองแก๋ว", zip: "50230" }
+                        ]
+                    }
+                ]
+            },
+            {
+                province: "ชลบุรี",
+                districts: [
+                    {
+                        name: "เมืองชลบุรี",
+                        subdistricts: [
+                            { name: "บางปลาสร้อย", zip: "20000" },
+                            { name: "มะขามหย่ง", zip: "20000" },
+                            { name: "บ้านโขด", zip: "20000" }
+                        ]
+                    },
+                    {
+                        name: "บางละมุง (พัทยา)",
+                        subdistricts: [
+                            { name: "หนองปรือ", zip: "20150" },
+                            { name: "นาเกลือ", zip: "20150" },
+                            { name: "ห้วยใหญ่", zip: "20150" }
+                        ]
+                    }
+                ]
+            },
+            {
+                province: "ภูเก็ต",
+                districts: [
+                    {
+                        name: "เมืองภูเก็ต",
+                        subdistricts: [
+                            { name: "ตลาดใหญ่", zip: "83000" },
+                            { name: "ตลาดเหนือ", zip: "83000" }
+                        ]
+                    },
+                    {
+                        name: "กะทู้",
+                        subdistricts: [
+                            { name: "ป่าตอง", zip: "83150" },
+                            { name: "กมลา", zip: "83120" }
+                        ]
+                    }
+                ]
+            },
+            {
+                province: "ขอนแก่น",
+                districts: [
+                    {
+                        name: "เมืองขอนแก่น",
+                        subdistricts: [
+                            { name: "เมืองขอนแก่น", zip: "40000" },
+                            { name: "ศิลา", zip: "40000" }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // --- Address Helper Functions ---
+        function initAddressSelectors() {
+            const provSelect = document.getElementById('addr-province');
+            if(!provSelect) return;
+            provSelect.innerHTML = '<option value="">เลือกจังหวัด</option>';
+            thaiAddressDB.forEach(p => {
+                const option = document.createElement('option');
+                option.value = p.province;
+                option.innerText = p.province;
+                provSelect.appendChild(option);
+            });
+        }
+
+        function loadDistricts() {
+            const provinceName = document.getElementById('addr-province').value;
+            const districtSelect = document.getElementById('addr-district');
+            const subDistrictSelect = document.getElementById('addr-subdistrict');
+            const zipInput = document.getElementById('addr-zip');
+
+            // Reset
+            districtSelect.innerHTML = '<option value="">เลือกเขต/อำเภอ</option>';
+            subDistrictSelect.innerHTML = '<option value="">เลือกแขวง/ตำบล</option>';
+            zipInput.value = '';
+            
+            districtSelect.disabled = true;
+            subDistrictSelect.disabled = true;
+
+            if (provinceName) {
+                const provinceData = thaiAddressDB.find(p => p.province === provinceName);
+                if (provinceData) {
+                    provinceData.districts.forEach(d => {
+                        const option = document.createElement('option');
+                        option.value = d.name;
+                        option.innerText = d.name;
+                        districtSelect.appendChild(option);
+                    });
+                    districtSelect.disabled = false;
+                }
+            }
+        }
+
+        function loadSubDistricts() {
+            const provinceName = document.getElementById('addr-province').value;
+            const districtName = document.getElementById('addr-district').value;
+            const subDistrictSelect = document.getElementById('addr-subdistrict');
+            const zipInput = document.getElementById('addr-zip');
+
+            // Reset
+            subDistrictSelect.innerHTML = '<option value="">เลือกแขวง/ตำบล</option>';
+            zipInput.value = '';
+            subDistrictSelect.disabled = true;
+
+            if (provinceName && districtName) {
+                const provinceData = thaiAddressDB.find(p => p.province === provinceName);
+                if (provinceData) {
+                    const districtData = provinceData.districts.find(d => d.name === districtName);
+                    if (districtData) {
+                        districtData.subdistricts.forEach(s => {
+                            const option = document.createElement('option');
+                            option.value = s.name;
+                            option.innerText = s.name;
+                            // Store zip in data attribute
+                            option.dataset.zip = s.zip;
+                            subDistrictSelect.appendChild(option);
+                        });
+                        subDistrictSelect.disabled = false;
+                    }
+                }
+            }
+        }
+
+        function setZipcode() {
+            const subDistrictSelect = document.getElementById('addr-subdistrict');
+            const zipInput = document.getElementById('addr-zip');
+            
+            const selectedOption = subDistrictSelect.options[subDistrictSelect.selectedIndex];
+            if (selectedOption && selectedOption.dataset.zip) {
+                zipInput.value = selectedOption.dataset.zip;
+            } else {
+                zipInput.value = '';
+            }
+        }
+
+        // --- Data ---
+        const products = [
+            { id: 1, name: "Aero Pulse X1", category: "running", price: 4500, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80", isHot: true },
+            { id: 2, name: "Cyber Glide", category: "lifestyle", price: 3200, image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80", isHot: false },
+            { id: 3, name: "Neon Runner Pro", category: "running", price: 5900, image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80", isHot: true },
+            { id: 4, name: "Urban Stealth", category: "lifestyle", price: 2800, image: "https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80", isHot: false },
+            { id: 5, name: "Titan Force", category: "training", price: 4100, image: "https://images.unsplash.com/photo-1605348532760-6753d2c43329?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80", isHot: false },
+            { id: 6, name: "Velocity Air", category: "running", price: 3800, image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80", isHot: false },
+            { id: 7, name: "Street Flow", category: "lifestyle", price: 2500, image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80", isHot: true },
+            { id: 8, name: "Core Trainer", category: "training", price: 3500, image: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80", isHot: false }
+        ];
+
+        let cart = [];
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        
+        // --- Auth State ---
+        let users = JSON.parse(localStorage.getItem('aero_users')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('aero_current_user')) || null;
+        let tempUser = null; 
+        let tempOTP = null;
+
+        // --- AI Chat Logic ---
+        function toggleChat() {
+            const chatWindow = document.getElementById('chat-window');
+            chatWindow.classList.toggle('scale-0');
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            // 1. Add User Message
+            appendMessage('user', message);
+            input.value = '';
+
+            // 2. Add AI Typing Indicator
+            const typingId = appendTypingIndicator();
+
+            // 3. Call Gemini API
+            const response = await callGeminiAPI(message);
+
+            // 4. Remove Typing & Add AI Message
+            removeTypingIndicator(typingId);
+            appendMessage('ai', response);
+        }
+
+        function appendMessage(sender, text) {
+            const container = document.getElementById('chat-messages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex flex-col ' + (sender === 'user' ? 'items-end' : 'items-start');
+            msgDiv.innerHTML = `
+                <div class="chat-message ${sender === 'user' ? 'chat-user' : 'chat-ai'}">
+                    ${text}
+                </div>
+            `;
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function appendTypingIndicator() {
+            const container = document.getElementById('chat-messages');
+            const id = 'typing-' + Date.now();
+            const msgDiv = document.createElement('div');
+            msgDiv.id = id;
+            msgDiv.className = 'flex flex-col items-start';
+            msgDiv.innerHTML = `
+                <div class="chat-message chat-ai">
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+                    <span class="typing-dot"></span>
+                </div>
+            `;
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+            return id;
+        }
+
+        function removeTypingIndicator(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        async function callGeminiAPI(userQuery) {
+            const apiKey = ""; // Runtime provided
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+            // Prepare richer product data context
+            const productContext = products.map(p => ({
+                name: p.name,
+                category: p.category,
+                price: p.price,
+                status: p.isHot ? "สินค้าขายดี/ยอดนิยม (Hot)" : "สินค้าปกติ",
+                features: p.category === 'running' ? "เหมาะสำหรับใส่วิ่ง, รองรับแรงกระแทก, น้ำหนักเบา" :
+                          p.category === 'training' ? "เหมาะสำหรับฟิตเนส, พื้นยึดเกาะดี, ทรงตัวเยี่ยม" :
+                          "เหมาะสำหรับใส่เที่ยว, ดีไซน์ล้ำสมัย, เข้ากับการแต่งตัวง่าย"
+            }));
+
+            const systemPrompt = `คุณคือ Aero AI ผู้ช่วยอัจฉริยะประจำร้านรองเท้าแห่งอนาคต AERO WALK
+บุคลิก: ทันสมัย, เป็นกันเอง, กระตือรือร้น, เชี่ยวชาญเรื่อง Sneaker Tech
+ข้อมูลสินค้าในร้าน (อัพเดทล่าสุด): ${JSON.stringify(productContext)}
+
+หน้าที่ของคุณคือการเป็น "สุดยอดเซลล์แมน" ที่ให้ข้อมูลได้ครบถ้วน:
+1. **ตอบคำถามเกี่ยวกับสินค้า:** บอกราคา, คุณสมบัติ, และสถานะสินค้า (Hot Item) ได้แม่นยำ
+2. **แนะนำสินค้า:** ถ้าลูกค้าถามหา "รองเท้าวิ่ง" หรือ "งบไม่เกิน 3000" ให้ค้นในข้อมูลที่มีแล้วตอบชื่อรุ่นพร้อมราคา
+3. **อธิบายเทคโนโลยี Aero-X:** (สมมติขึ้น) จุดเด่นคือ พื้นรองเท้าทำจากโฟม Aero-X ที่เบาเหมือนอากาศแต่เด้งส่งแรงคืนได้ 80%, ผ้าถักระบายอากาศ Nano-Knit
+4. **ปิดการขาย:** เชียร์สินค้าตัวที่ Hot หรือตรงความต้องการลูกค้าเสมอ
+
+กฎเหล็ก:
+- ตอบเป็นภาษาไทยเสมอ
+- ใช้ Emoji ✨👟🔥🚀 ประกอบให้น่าอ่าน
+- ถ้าลูกค้าถามหาสินค้าที่ไม่มีในรายการ ให้สุภาพและแนะนำรุ่นที่ใกล้เคียงแทน
+- ห้ามตอบเรื่องการเมือง ศาสนา หรือเรื่องที่ไม่เกี่ยวกับรองเท้า`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            // Exponential backoff logic
+            const maxRetries = 5;
+            let delay = 1000;
+
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+                    const data = await response.json();
+                    return data.candidates[0].content.parts[0].text;
+
+                } catch (error) {
+                    if (i === maxRetries - 1) {
+                        return "ขออภัยครับ ระบบสื่อสารขัดข้องชั่วคราว โปรดลองใหม่ในภายหลังครับ 😅";
+                    }
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        // --- Auth Functions ---
+
+        function handleUserClick() {
+            if (currentUser) {
+                openProfileModal();
+            } else {
+                openAuthModal();
+            }
+        }
+
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            switchAuthView('login');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function switchAuthView(view) {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('register-form').classList.add('hidden');
+            document.getElementById('verify-form').classList.add('hidden');
+
+            if (view === 'login') document.getElementById('login-form').classList.remove('hidden');
+            else if (view === 'register') document.getElementById('register-form').classList.remove('hidden');
+            else if (view === 'verify') document.getElementById('verify-form').classList.remove('hidden');
+        }
+
+        function register() {
+            const username = document.getElementById('reg-username').value;
+            const email = document.getElementById('reg-email').value;
+            const phone = document.getElementById('reg-phone').value;
+            const password = document.getElementById('reg-password').value;
+
+            if (!username || !email || !password || !phone) {
+                showToast("กรุณากรอกข้อมูลให้ครบถ้วน", "info");
+                return;
+            }
+
+            // Check duplicate email
+            if (users.find(u => u.email === email)) {
+                showToast("อีเมลนี้ถูกใช้งานแล้ว", "info");
+                return;
+            }
+
+            // Generate OTP
+            tempOTP = Math.floor(100000 + Math.random() * 900000).toString();
+            tempUser = {
+                id: Date.now(),
+                username,
+                email,
+                phone,
+                password,
+                address: {},
+                verified: false
+            };
+
+            // Display OTP directly in UI instead of alert
+            const otpText = document.getElementById('otp-text');
+            otpText.innerText = tempOTP;
+            
+            switchAuthView('verify');
+        }
+
+        function verifyEmail() {
+            const inputCode = document.getElementById('otp-input').value;
+            if (inputCode === tempOTP) {
+                tempUser.verified = true;
+                users.push(tempUser);
+                localStorage.setItem('aero_users', JSON.stringify(users));
+                
+                // Auto login
+                currentUser = tempUser;
+                localStorage.setItem('aero_current_user', JSON.stringify(currentUser));
+                
+                showToast("สมัครสมาชิกสำเร็จ!", "success");
+                closeAuthModal();
+                updateUserIcon();
+            } else {
+                showToast("รหัสยืนยันไม่ถูกต้อง", "info");
+            }
+        }
+
+        function resendOTP() {
+            tempOTP = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            // Update OTP Display
+            const otpText = document.getElementById('otp-text');
+            otpText.innerText = tempOTP;
+            
+            // Add flash animation effect
+            const box = document.getElementById('otp-display-box');
+            box.classList.remove('animate-pulse');
+            void box.offsetWidth; // trigger reflow
+            box.classList.add('animate-pulse');
+
+            showToast("ส่งรหัสยืนยันใหม่แล้ว", "info");
+        }
+
+        function login() {
+            const emailOrUser = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const user = users.find(u => (u.email === emailOrUser || u.username === emailOrUser) && u.password === password);
+
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('aero_current_user', JSON.stringify(currentUser));
+                showToast("เข้าสู่ระบบสำเร็จ", "success");
+                closeAuthModal();
+                updateUserIcon();
+            } else {
+                showToast("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง", "info");
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('aero_current_user');
+            closeProfileModal();
+            updateUserIcon();
+            showToast("ออกจากระบบแล้ว", "info");
+        }
+
+        function updateUserIcon() {
+            const btn = document.getElementById('user-btn');
+            if (currentUser) {
+                btn.classList.add('text-neon-blue');
+                btn.classList.remove('text-slate-300');
+            } else {
+                btn.classList.remove('text-neon-blue');
+                btn.classList.add('text-slate-300');
+            }
+        }
+
+        // --- Profile Logic ---
+        function openProfileModal() {
+            document.getElementById('profile-modal').classList.remove('hidden');
+            
+            // Populate Data
+            document.getElementById('display-username').innerText = currentUser.username;
+            document.getElementById('display-email').innerText = currentUser.email;
+            document.getElementById('display-phone').innerText = currentUser.phone || '-';
+            
+            // Address
+            if (currentUser.address) {
+                document.getElementById('addr-detail').value = currentUser.address.detail || '';
+                
+                // Set Address Selectors
+                const provSelect = document.getElementById('addr-province');
+                provSelect.value = currentUser.address.province || '';
+                
+                // Trigger cascading loads
+                loadDistricts(); 
+                document.getElementById('addr-district').value = currentUser.address.district || '';
+                
+                loadSubDistricts();
+                document.getElementById('addr-subdistrict').value = currentUser.address.subdistrict || '';
+                
+                document.getElementById('addr-zip').value = currentUser.address.zip || '';
+                
+                document.getElementById('addr-phone').value = currentUser.address.phone || currentUser.phone || '';
+            } else {
+                // กรณีเพิ่งเข้าครั้งแรก
+                document.getElementById('addr-phone').value = currentUser.phone || '';
+            }
+
+            switchProfileTab('info');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profile-modal').classList.add('hidden');
+        }
+
+        function switchProfileTab(tab) {
+            // Hide all
+            document.getElementById('content-info').classList.add('hidden');
+            document.getElementById('content-address').classList.add('hidden');
+            document.getElementById('content-password').classList.add('hidden');
+            
+            // Reset styles
+            ['tab-info', 'tab-address', 'tab-password'].forEach(id => {
+                const el = document.getElementById(id);
+                el.classList.remove('bg-slate-800', 'text-white', 'border', 'border-neon-blue');
+                el.classList.add('text-slate-400');
+            });
+
+            // Show selected
+            document.getElementById(`content-${tab}`).classList.remove('hidden');
+            
+            // Style active tab
+            const activeTab = document.getElementById(`tab-${tab}`);
+            activeTab.classList.remove('text-slate-400');
+            activeTab.classList.add('bg-slate-800', 'text-white', 'border', 'border-neon-blue');
+        }
+
+        function saveAddress() {
+            const detail = document.getElementById('addr-detail').value;
+            const province = document.getElementById('addr-province').value;
+            const district = document.getElementById('addr-district').value;
+            const subdistrict = document.getElementById('addr-subdistrict').value;
+            const zip = document.getElementById('addr-zip').value;
+            const phone = document.getElementById('addr-phone').value;
+
+            if(!detail || !province || !district || !subdistrict || !zip || !phone) {
+                showToast("กรุณากรอกข้อมูลที่อยู่ให้ครบถ้วน", "info");
+                return;
+            }
+
+            currentUser.address = { detail, province, district, subdistrict, zip, phone };
+            saveUserToStorage();
+            showToast("บันทึกที่อยู่เรียบร้อย", "success");
+        }
+
+        function changePassword() {
+            const oldPwd = document.getElementById('pwd-old').value;
+            const newPwd = document.getElementById('pwd-new').value;
+            const confirmPwd = document.getElementById('pwd-confirm').value;
+
+            if (oldPwd !== currentUser.password) {
+                showToast("รหัสผ่านเดิมไม่ถูกต้อง", "info");
+                return;
+            }
+            if (newPwd.length < 4) {
+                showToast("รหัสผ่านใหม่ต้องมีอย่างน้อย 4 ตัวอักษร", "info");
+                return;
+            }
+            if (newPwd !== confirmPwd) {
+                showToast("รหัสผ่านใหม่ไม่ตรงกัน", "info");
+                return;
+            }
+
+            currentUser.password = newPwd;
+            saveUserToStorage();
+            
+            // Clear fields
+            document.getElementById('pwd-old').value = '';
+            document.getElementById('pwd-new').value = '';
+            document.getElementById('pwd-confirm').value = '';
+            
+            showToast("เปลี่ยนรหัสผ่านสำเร็จ", "success");
+        }
+
+        function saveUserToStorage() {
+            // Update current user in local storage
+            localStorage.setItem('aero_current_user', JSON.stringify(currentUser));
+            
+            // Update in users array
+            const idx = users.findIndex(u => u.id === currentUser.id);
+            if (idx !== -1) {
+                users[idx] = currentUser;
+                localStorage.setItem('aero_users', JSON.stringify(users));
+            }
+        }
+
+        function processCheckout() {
+            if (cart.length === 0) {
+                showToast("ตะกร้าสินค้าว่างเปล่า", "info");
+                return;
+            }
+            if (!currentUser) {
+                showToast("กรุณาเข้าสู่ระบบก่อนชำระเงิน", "info");
+                openAuthModal();
+                return;
+            }
+            if (!currentUser.address || !currentUser.address.detail) {
+                showToast("กรุณากรอกที่อยู่จัดส่ง", "info");
+                openProfileModal();
+                switchProfileTab('address');
+                return;
+            }
+            
+            // Success Scenario
+            const addr = currentUser.address;
+            const fullAddr = `${addr.detail} แขวง/ตำบล ${addr.subdistrict} เขต/อำเภอ ${addr.district} จังหวัด ${addr.province} ${addr.zip}`;
+            
+            alert(`ขอบคุณสำหรับการสั่งซื้อ!\n\nสินค้าจะถูกจัดส่งไปที่:\nคุณ ${currentUser.username}\n${fullAddr}\n\nเบอร์ติดต่อ: ${addr.phone}`);
+            
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+
+        // --- Core Functions (Fixed Logic) ---
+
+        // SPA Navigation Logic (Robust)
+        function navigateTo(pageId) {
+            const homeView = document.getElementById('view-home');
+            const recView = document.getElementById('view-recommended');
+            const collectionSec = document.getElementById('collection'); // เพิ่มตัวแปรสำหรับ Section สินค้าทั่วไป
+            const navHome = document.getElementById('nav-home');
+            const navRec = document.getElementById('nav-rec');
+
+            // Defensive Check
+            if (!homeView || !recView) {
+                console.error("View elements not found!");
+                return;
+            }
+
+            window.scrollTo(0,0);
+
+            if (pageId === 'home') {
+                homeView.classList.remove('hidden');
+                recView.classList.add('hidden');
+                
+                // แสดงส่วน Collection กลับมาเมื่ออยู่หน้า Home
+                if(collectionSec) collectionSec.classList.remove('hidden'); 
+                
+                if (navHome) {
+                    navHome.classList.add('text-neon-blue');
+                    navHome.classList.remove('text-slate-300');
+                }
+                if (navRec) {
+                    navRec.classList.remove('text-neon-blue');
+                    navRec.classList.add('text-slate-300');
+                }
+
+                if (typeof renderProducts === 'function') renderProducts('all');
+            } 
+            else if (pageId === 'recommended') {
+                homeView.classList.add('hidden');
+                recView.classList.remove('hidden');
+                
+                // ซ่อนส่วน Collection ออกไปเมื่ออยู่หน้าสินค้าแนะนำ
+                if(collectionSec) collectionSec.classList.add('hidden');
+
+                if (navRec) {
+                    navRec.classList.add('text-neon-blue');
+                    navRec.classList.remove('text-slate-300');
+                }
+                if (navHome) {
+                    navHome.classList.remove('text-neon-blue');
+                    navHome.classList.add('text-slate-300');
+                }
+
+                if (typeof renderRecommendedPage === 'function') renderRecommendedPage();
+            }
+        }
+
+        // ฟังก์ชันแสดงสินค้าหน้า Premium (เพิ่มใหม่)
+        function renderRecommendedPage() {
+            const container = document.getElementById('recommended-grid');
+            if(!container) return;
+            container.innerHTML = '';
+            
+            // กรองสินค้าที่ราคา >= 4000
+            const premiumProducts = products.filter(p => p.price >= 4000);
+
+            if (premiumProducts.length === 0) {
+                container.innerHTML = '<p class="text-center text-slate-500 w-full col-span-2">ยังไม่มีสินค้าแนะนำในขณะนี้</p>';
+                return;
+            }
+
+            premiumProducts.forEach((p, index) => {
+                const sizeOptions = [38, 39, 40, 41, 42, 43, 44, 45].map(s => `<option value="${s}">Size ${s}</option>`).join('');
+
+                const card = document.createElement('div');
+                card.className = "group relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-6 border border-slate-700/50 hover:border-yellow-500/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(234,179,8,0.1)] flex flex-col md:flex-row items-center gap-8";
+                
+                // ใช้ ID พิเศษ (rec-*) เพื่อไม่ให้ชนกับหน้า Home
+                card.innerHTML = `
+                    <div class="w-full md:w-1/2 aspect-square rounded-2xl overflow-hidden relative bg-black/20">
+                        <div class="absolute inset-0 bg-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
+                        <img src="${p.image}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <span class="absolute top-4 left-4 bg-black/80 backdrop-blur text-yellow-500 text-xs font-bold px-3 py-1 rounded border border-yellow-500/30">PREMIUM</span>
+                    </div>
+                    
+                    <div class="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left">
+                        <div class="mb-4">
+                            <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors">${p.name}</h3>
+                            <p class="text-slate-400 text-sm uppercase tracking-widest mb-4">${p.category} EDITION</p>
+                            <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                                ที่สุดแห่งงานดีไซน์และนวัตกรรม Aero-X รุ่นพิเศษ 
+                                สัมผัสความพรีเมียมที่เหนือกว่าในทุกย่างก้าว
+                            </p>
+                        </div>
+
+                        <!-- Size Selector for Premium Page -->
+                        <div class="mb-6 max-w-[200px] mx-auto md:mx-0">
+                             <label class="text-xs text-yellow-500 uppercase tracking-wider mb-2 block text-left font-bold">Select Size</label>
+                             <div class="relative">
+                                <select id="size-rec-${p.id}" class="w-full bg-slate-900 border border-slate-600 text-slate-200 text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-yellow-500 transition-colors appearance-none cursor-pointer hover:bg-slate-800 hover:border-slate-500 shadow-inner">
+                                    ${sizeOptions}
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                                </div>
+                             </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-center md:justify-start gap-6">
+                            <span class="text-3xl font-bold text-yellow-400">฿${p.price.toLocaleString()}</span>
+                            <button onclick="addToCartWithSize(${p.id}, 'rec')" class="px-8 py-3 bg-white text-dark-bg font-bold rounded-full hover:bg-yellow-400 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_20px_rgba(234,179,8,0.6)] active:scale-95">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('product-grid');
+            if(!grid) return;
+            grid.innerHTML = ''; 
+
+            const filteredProducts = filter === 'all' 
+                ? products 
+                : products.filter(p => p.category === filter);
+
+            filteredProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'card group bg-card-bg rounded-2xl p-4 border border-slate-700 hover:border-neon-blue/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(0,243,255,0.1)] flex flex-col h-full'; 
+                
+                const isLiked = favorites.includes(product.id);
+                const heartClass = isLiked ? "fa-solid fa-heart text-red-500" : "fa-regular fa-heart";
+                const heartBtnBg = isLiked ? "bg-white" : "bg-slate-900/50 hover:bg-white text-slate-400 hover:text-red-500";
+                const sizeOptions = [38, 39, 40, 41, 42, 43, 44, 45].map(s => `<option value="${s}">Size ${s}</option>`).join('');
+
+                // ใช้ ID ปกติ (size-home-*) หรือ size-* เดิม
+                card.innerHTML = `
+                    <div class="relative img-container rounded-xl bg-slate-800 aspect-square mb-4 overflow-hidden">
+                        ${product.isHot ? '<span class="absolute top-3 left-3 bg-neon-purple text-white text-xs font-bold px-2 py-1 rounded z-10">HOT</span>' : ''}
+                        <button onclick="toggleFavorite(${product.id})" id="fav-btn-${product.id}" class="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-colors z-10 ${heartBtnBg}">
+                            <i class="${heartClass}"></i>
+                        </button>
+                        <img src="${product.image}" alt="${product.name}">
+                    </div>
+                    <div class="flex-1 flex flex-col justify-between"> 
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <p class="text-xs text-slate-500 uppercase tracking-wide">${product.category}</p>
+                                    <h3 class="text-base md:text-lg font-bold text-white group-hover:text-neon-blue transition-colors line-clamp-1">${product.name}</h3>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="text-[10px] text-slate-400 uppercase tracking-wider mb-1 block">Select Size</label>
+                                <div class="relative">
+                                    <select id="size-home-${product.id}" class="w-full bg-slate-800 border border-slate-600 text-slate-200 text-sm rounded px-3 py-2 focus:outline-none focus:border-neon-blue transition-colors appearance-none cursor-pointer hover:bg-slate-700">
+                                        ${sizeOptions}
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-400">
+                                        <i class="fa-solid fa-chevron-down text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-base md:text-lg font-bold text-slate-200">฿${product.price.toLocaleString()}</span>
+                            <button onclick="addToCartWithSize(${product.id}, 'home')" class="w-10 h-10 rounded-full bg-white text-dark-bg flex items-center justify-center hover:bg-neon-blue transition-colors shadow-lg active:scale-95">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            updateFavUI();
+        }
+
+        function toggleFavorite(productId) {
+            const index = favorites.indexOf(productId);
+            const btn = document.getElementById(`fav-btn-${productId}`);
+            const icon = btn.querySelector('i');
+
+            if (index === -1) {
+                favorites.push(productId);
+                btn.className = "absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-colors z-10 bg-white";
+                icon.className = "fa-solid fa-heart text-red-500 heart-animation";
+                showToast("เพิ่มในรายการโปรดแล้ว", "fav");
+            } else {
+                favorites.splice(index, 1);
+                btn.className = "absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-colors z-10 bg-slate-900/50 hover:bg-white text-slate-400 hover:text-red-500";
+                icon.className = "fa-regular fa-heart";
+                showToast("ลบออกจากรายการโปรด", "info");
+            }
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            updateFavUI();
+            setTimeout(() => { icon.classList.remove('heart-animation'); }, 300);
+        }
+
+        function updateFavUI() {
+            document.getElementById('fav-count').innerText = favorites.length;
+            document.getElementById('fav-count').classList.toggle('opacity-0', favorites.length === 0);
+            
+            const favContainer = document.getElementById('fav-items');
+            if (favorites.length === 0) {
+                favContainer.innerHTML = `<div class="text-center text-slate-500 mt-10"><i class="fa-regular fa-heart text-4xl mb-4 opacity-50"></i><p>ยังไม่มีรายการโปรด</p></div>`;
+                return;
+            }
+            favContainer.innerHTML = favorites.map(id => {
+                const item = products.find(p => p.id === id);
+                return `
+                <div class="flex gap-4 items-center bg-slate-800/50 p-3 rounded-lg border border-slate-700">
+                    <img src="${item.image}" class="w-16 h-16 object-cover rounded bg-slate-700">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-sm text-white">${item.name}</h4>
+                        <p class="text-neon-blue text-sm mt-1">฿${item.price.toLocaleString()}</p>
+                    </div>
+                    <button onclick="toggleFavorite(${item.id}); renderProducts();" class="text-red-500 hover:text-red-400 p-2"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `}).join('');
+        }
+
+        // ปรับปรุงฟังก์ชัน addToCart ให้รองรับ Context (Home vs Rec)
+        function addToCartWithSize(productId, context = 'home') {
+            let size = 42; // Default
+            
+            // พยายามหา Element ตาม Context ก่อน
+            let sizeEl = document.getElementById(`size-${context}-${productId}`);
+            
+            // ถ้าหาไม่เจอ ให้ลองหาแบบเก่า (เผื่อกรณีไม่ได้เรนเดอร์ใหม่)
+            if (!sizeEl) {
+                sizeEl = document.getElementById(`size-${productId}`);
+            }
+
+            if (sizeEl) {
+                size = parseInt(sizeEl.value);
+            }
+
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId && item.size === size);
+
+            if (existingItem) existingItem.quantity += 1;
+            else cart.push({ ...product, quantity: 1, size: size });
+
+            updateCartUI();
+            
+            if(context === 'rec') {
+                showToast(`เพิ่ม ${product.name} (Size ${size}) แล้ว`, "success");
+            } else {
+                showToast("เพิ่มสินค้าลงตะกร้าแล้ว", "cart");
+            }
+        }
+
+        function removeFromCart(productId, size) {
+            cart = cart.filter(item => !(item.id === productId && item.size === size));
+            updateCartUI();
+        }
+
+        function updateQuantity(productId, size, change) {
+            const item = cart.find(item => item.id === productId && item.size === size);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) removeFromCart(productId, size);
+                else updateCartUI();
+            }
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').innerText = totalItems;
+            document.getElementById('cart-count').classList.toggle('opacity-0', totalItems === 0);
+            
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cart-total').innerText = '฿' + totalPrice.toLocaleString();
+
+            const cartContainer = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                cartContainer.innerHTML = `<div class="text-center text-slate-500 mt-10"><i class="fa-solid fa-basket-shopping text-4xl mb-4 opacity-50"></i><p>ตะกร้าของคุณว่างเปล่า</p><button onclick="toggleCart(); document.getElementById('collection').scrollIntoView();" class="mt-4 text-neon-blue underline text-sm hover:text-white">ไปช้อปเลย</button></div>`;
+                return;
+            }
+            cartContainer.innerHTML = cart.map(item => `
+                <div class="flex gap-4 items-center bg-slate-800/50 p-3 rounded-lg border border-slate-700">
+                    <img src="${item.image}" class="w-16 h-16 object-cover rounded bg-slate-700">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-sm text-white">${item.name}</h4>
+                        <p class="text-slate-400 text-xs">Size: <span class="text-white font-medium">${item.size}</span></p>
+                        <p class="text-neon-blue text-sm mt-1">฿${item.price.toLocaleString()}</p>
+                    </div>
+                    <div class="flex flex-col items-end gap-2">
+                        <button onclick="removeFromCart(${item.id}, ${item.size})" class="text-slate-500 hover:text-red-400 text-xs p-1"><i class="fa-solid fa-trash"></i></button>
+                        <div class="flex items-center gap-2 bg-slate-900 rounded px-1">
+                            <button onclick="updateQuantity(${item.id}, ${item.size}, -1)" class="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-white">-</button>
+                            <span class="text-sm font-medium w-4 text-center">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, ${item.size}, 1)" class="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-white">+</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Toggles & UI
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('cart-overlay');
+            const isOpen = !sidebar.classList.contains('translate-x-full');
+            if (isOpen) {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.remove('opacity-100');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            } else {
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth;
+                overlay.classList.add('opacity-100');
+                sidebar.classList.remove('translate-x-full');
+                if(!document.getElementById('fav-sidebar').classList.contains('translate-x-full')) toggleFavSidebar();
+            }
+        }
+
+        function toggleFavSidebar() {
+            const sidebar = document.getElementById('fav-sidebar');
+            const overlay = document.getElementById('fav-overlay');
+            const isOpen = !sidebar.classList.contains('translate-x-full');
+            if (isOpen) {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.remove('opacity-100');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            } else {
+                overlay.classList.remove('hidden');
+                void overlay.offsetWidth;
+                overlay.classList.add('opacity-100');
+                sidebar.classList.remove('translate-x-full');
+                if(!document.getElementById('cart-sidebar').classList.contains('translate-x-full')) toggleCart();
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('translate-x-full');
+        }
+
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            document.getElementById('toast-message').innerText = message;
+            
+            icon.className = type === 'success' ? 'fa-solid fa-circle-check text-green-500' :
+                             type === 'info' ? 'fa-solid fa-info-circle text-neon-blue' :
+                             'fa-solid fa-bell text-white';
+
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none'), 2000);
+        }
+
+        // --- Legal Modal Logic ---
+        function openLegalModal(tab = 'privacy') {
+            const modal = document.getElementById('legal-modal');
+            const content = document.getElementById('legal-modal-content');
+            
+            modal.classList.remove('hidden');
+            void modal.offsetWidth; // Trigger reflow
+            
+            modal.classList.remove('opacity-0');
+            content.classList.remove('scale-95');
+            
+            switchLegalTab(tab);
+        }
+
+        function closeLegalModal() {
+            const modal = document.getElementById('legal-modal');
+            const content = document.getElementById('legal-modal-content');
+            
+            modal.classList.add('opacity-0');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function switchLegalTab(tab) {
+            const privacyContent = document.getElementById('legal-content-privacy');
+            const termsContent = document.getElementById('legal-content-terms');
+            const privacyBtn = document.getElementById('btn-tab-privacy');
+            const termsBtn = document.getElementById('btn-tab-terms');
+            const scrollArea = document.getElementById('legal-scroll-area');
+
+            scrollArea.scrollTop = 0;
+
+            if (tab === 'privacy') {
+                privacyContent.classList.remove('hidden');
+                termsContent.classList.add('hidden');
+                
+                privacyBtn.classList.add('text-neon-blue', 'border-neon-blue', 'bg-white/5');
+                privacyBtn.classList.remove('text-slate-400', 'border-transparent', 'hover:bg-white/5');
+                
+                termsBtn.classList.add('text-slate-400', 'border-transparent', 'hover:bg-white/5');
+                termsBtn.classList.remove('text-neon-blue', 'border-neon-blue', 'bg-white/5');
+            } else {
+                privacyContent.classList.add('hidden');
+                termsContent.classList.remove('hidden');
+                
+                termsBtn.classList.add('text-neon-blue', 'border-neon-blue', 'bg-white/5');
+                termsBtn.classList.remove('text-slate-400', 'border-transparent', 'hover:bg-white/5');
+                
+                privacyBtn.classList.add('text-slate-400', 'border-transparent', 'hover:bg-white/5');
+                privacyBtn.classList.remove('text-neon-blue', 'border-neon-blue', 'bg-white/5');
+            }
+        }
+
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-neon-blue/10', 'text-neon-blue', 'border-neon-blue');
+                    b.classList.add('border-slate-700', 'text-slate-400');
+                });
+                btn.classList.remove('border-slate-700', 'text-slate-400');
+                btn.classList.add('bg-neon-blue/10', 'text-neon-blue', 'border-neon-blue');
+                renderProducts(btn.dataset.filter);
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('shadow-lg');
+            else nav.classList.remove('shadow-lg');
+        });
+
+        // Initialize
+        renderProducts();
+        updateUserIcon();
+        initAddressSelectors();
+        
+        // CSS Animation for marquee
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            @keyframes scroll {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    </script>
+</body>
+</html>
